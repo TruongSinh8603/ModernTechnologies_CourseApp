@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'ckeditor',
     'ckeditor_uploader',
-    'debug-toolbar'
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [

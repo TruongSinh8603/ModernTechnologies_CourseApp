@@ -2,8 +2,23 @@ from django.contrib import admin
 from .models import Category, Course, Lesson, Tag
 from django.utils.html import mark_safe
 from django import forms
+from django.urls import path
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django.template.response import TemplateResponse
+from courses import dao
 
+class CourseAppAdminSite(admin.AdminSite):
+    site_header = 'iSucces'
+
+    def get_urls(self):
+        return [
+            path('course-stats/', self.stats_view)
+        ] + super().get_urls()
+
+    def stats_view(self, request):
+        return TemplateResponse(request, 'admin/stats.html', {
+            "stats": dao.count_courses_by_cate_id()
+        })
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['pk', 'name']
@@ -41,8 +56,9 @@ class CourseAdmin(admin.ModelAdmin):
         }
 
 
+admin_site = CourseAppAdminSite(name='MyApp')
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Course, CourseAdmin)
-admin.site.register(Lesson)
-admin.site.register(Tag)
+admin_site.register(Category, CategoryAdmin)
+admin_site.register(Course, CourseAdmin)
+admin_site.register(Lesson)
+admin_site.register(Tag)
