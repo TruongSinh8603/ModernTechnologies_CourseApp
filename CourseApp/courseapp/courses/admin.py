@@ -17,7 +17,7 @@ class CourseAppAdminSite(admin.AdminSite):
 
     def stats_view(self, request):
         return TemplateResponse(request, 'admin/stats.html', {
-            "stats": dao.count_courses_by_cate_id()
+            'stats': dao.count_courses_by_cate_id()
         })
 
 class CategoryAdmin(admin.ModelAdmin):

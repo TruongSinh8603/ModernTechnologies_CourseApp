@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'debug_toolbar',
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    'cloudinary',
+    'oauth2_provider'
 ]
 
 MIDDLEWARE = [
@@ -83,12 +85,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'courseapp.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+
 #Đường dẫn hình ảnh
 MEDIA_ROOT = '%s/courses/static' % BASE_DIR
 
 #Đường dẫn chỉ định nơi upload
 CKEDITOR_UPLOAD_PATH = "ckeditor/images"
 
+#Lưu hình lên Cloud
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dzamheemx",
+    api_key="279156174534789",
+    api_secret="KFQQWMyliAcvwK7vYvX__qEYstM"
+)
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -146,3 +162,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#OAuthn2
+CLIENT_ID = 'L2m1aDCtIa2UK3KuZUOFZTZRtKiheelGYB1qd8n0'
+CLIENT_SECRET = 'UXz5elJBkFhLxk7CZFmfIkYo5RQnuNzKCWYZvQu3srMsnmYNO6UPmLYRlpTFj4DI1pN4YE0W5NP7ADRHu6W4PP8ECqGUH2mlgyqUzumvzBNgVm27Nw37T0El7ZjvPX4V'
