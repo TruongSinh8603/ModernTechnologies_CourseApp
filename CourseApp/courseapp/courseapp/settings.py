@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'cloudinary',
-    'oauth2_provider'
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
+    #'socialnetwork.middleware.PasswordChangeLectureeMiddleware'
 ]
 
 #Use Database from MySQL
@@ -88,7 +91,10 @@ WSGI_APPLICATION = 'courseapp.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 #Đường dẫn hình ảnh
@@ -164,5 +170,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #OAuthn2
-CLIENT_ID = 'L2m1aDCtIa2UK3KuZUOFZTZRtKiheelGYB1qd8n0'
-CLIENT_SECRET = 'UXz5elJBkFhLxk7CZFmfIkYo5RQnuNzKCWYZvQu3srMsnmYNO6UPmLYRlpTFj4DI1pN4YE0W5NP7ADRHu6W4PP8ECqGUH2mlgyqUzumvzBNgVm27Nw37T0El7ZjvPX4V'
+CLIENT_ID = 'edOYPwOWPqkW9xH7U8DZLvP313D1hWuVYzQ7nEy4'
+CLIENT_SECRET = 'acVop0stkgu4sb0WFllbKzscXp1QcTjqb9UqaTBgbxtUlZiMMzqSY9KGloNEqfi7VsbE9uvwKc2I0mK11dAZfJ3lHakVZA5LpcYsNaxfBTeEZhFkb58lJ9aNVWqH3kje'
+OAUTH2_PROVIDER = {
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+}
+LOGIN_URL='/admin/'
